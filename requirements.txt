@@ -14,3 +14,8 @@ typing_extensions==4.12.2
 tzdata==2024.2
 urllib3==2.2.3
 gunicorn==19.7.1
+packaging==24.2
+psycopg==3.2.6
+psycopg-binary==3.2.6
+psycopg2==2.9.10
+psycopg2-binary==2.9.10
