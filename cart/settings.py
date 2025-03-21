@@ -80,11 +80,11 @@ WSGI_APPLICATION = 'cart.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-#database_url = os.environ.get("DATABASE_URL") 
-# DATABASES["default"] = dj_database_url.parse(database_url)
+database_url = os.environ.get("DATABASE_URL") 
+ DATABASES["default"] = dj_database_url.parse(database_url)
 
-DATABASES = {
-    'default': dj_database_url.parse("postgresql://cart_517j_user:ZvzbQ2buEsGfHASskfodwEjZvHT65nL3@dpg-cvbnontds78s73amu820-a.oregon-postgres.render.com/cart_517j") 
+#DATABASES = {
+#    'default': dj_database_url.parse("postgresql://cart_517j_user:ZvzbQ2buEsGfHASskfodwEjZvHT65nL3@dpg-cvbnontds78s73amu820-a.oregon-postgres.render.com/cart_517j") 
     # 'default': dj_database_url.parse(database_url)
     #  'default': {
 #         # 'ENGINE': 'django.db.backends.sqlite3',
@@ -111,7 +111,7 @@ DATABASES = {
         
 
     #  }
- }
+# }
 
 
 # Password validation
