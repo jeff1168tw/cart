@@ -24,15 +24,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 
 SECRET_KEY = 'django-insecure-yg3@(tb*d#@*oq+v)2=h9w%dsc66_**^)&3zik$x8gbl)pbx@5'
-# SECRET_KEY = os.environ.get("SECRET_KEY")
+#SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = True
-# DEBUG = os.environ.get("DEBUG","False").lower == "true" 
+DEBUG = False
+#DEBUG = os.environ.get("DEBUG","False").lower == "true" 
 
 ALLOWED_HOSTS = ["*"]
-# ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
+#ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(" ")
 
 # Application definition
 
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'cart.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# database_url = os.environ.get("DATABASE_URL") 
+#database_url = os.environ.get("DATABASE_URL") 
 # DATABASES["default"] = dj_database_url.parse(database_url)
 
 DATABASES = {
@@ -153,7 +153,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    #BASE_DIR / 'static',
+    os.path.join(BASE_DIR, 'static')
 ]
 
 # Default primary key field type
