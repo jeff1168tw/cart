@@ -89,7 +89,7 @@ def cartok(request):  #按確認購買鈕
 	total = 0
 	for unit in cartlist:
 		total += int(unit[3])
-	grandtotal = total + 100
+	grandtotal = total + 60
 	message = ''
 	customname = request.POST.get('CustomerName', '')
 	customphone = request.POST.get('CustomerPhone', '')
