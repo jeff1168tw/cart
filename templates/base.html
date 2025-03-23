@@ -3,12 +3,12 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>公仔購物網</title>
-    {% load static %}
-    <link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" />
+    {% comment %} {% load static %} {% endcomment %}
+    {% comment %} <link href="{% static "css/style.css" %}" rel="stylesheet" type="text/css" /> {% endcomment %}
+    <link href= "/static/css/style.css"  rel="stylesheet" type="text/css" />
     {% block script %}{% endblock %}
 </head>
 <body>
-     <img src="/static/images/s2.jpg" width="920" height="29" />
     <div id="warp">
       <div id="header">
         <div class="logo"></div>
