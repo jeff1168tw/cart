@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-yg3@(tb*d#@*oq+v)2=h9w%dsc66_**^)&3zik$x8gbl)pbx@5
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = False
+DEBUG = True
 #DEBUG = os.environ.get("DEBUG","False").lower == "true" 
 
 ALLOWED_HOSTS = ["*"]
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    # 'whitenoise.middleware.WhiteNoiseMiddleware',
+    #'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -153,8 +153,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
-    #BASE_DIR / 'static',
-    os.path.join(BASE_DIR, 'static')
+    BASE_DIR / 'static',
+    #os.path.join(BASE_DIR, 'static')
 ]
 
 # Default primary key field type

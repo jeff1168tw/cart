@@ -37,7 +37,7 @@ a:active {
 #warp #content #sidediv .sidemenu {
 	border-radius: 20px 0px 20px 0px;
 	color: #FFF;
-	background-color: #73d9eb;
+	background-color: #b173eb;
 	padding: 5px;
 	font-weight: bold;
 	text-align: center;
@@ -165,9 +165,10 @@ a.delcart {
 	text-decoration: none;
 }
 #warp #header {
-	background-image: url(images/cartTop.png);
+	background-image: url(images/cartTop_1.jpg);
 	height: 215px;
 	width: 950px;
+	background-repeat: no-repeat;
 }
 #warp #header .logo {
 	/* background-image: url(images/logo.png); */
