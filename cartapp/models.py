@@ -28,3 +28,12 @@ class DetailModel(models.Model):
     dtotal = models.IntegerField(default=0)
     def __str__(self):
         return self.pname
+    
+class temperature_db(models.Model):
+    myid = models.AutoField(primary_key=True)
+    sensor_id = models.IntegerField(null=False) #若無資料，則預設40，使用orm才可使用
+    temperature = models.FloatField(null=False)
+    humidity = models.FloatField(null=False)
+    timestamp =  models.DateTimeField(auto_now=True) #自動填入日期，使用orm才可使用
+
+
