@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from cartapp import models
+from cartapp.models import temperature_db
 from smtplib import SMTP, SMTPAuthenticationError, SMTPException
 from email.mime.text import MIMEText
+from django.forms.models import model_to_dict
+from django.http import HttpResponse,JsonResponse
+import pytz
 
 message = ''
 cartlist = []  #購買商品串列
@@ -148,3 +152,108 @@ def send_simple_message(mailfrom, mailpw, mailto, mailsubject, mailcontent): #�
 	except:
 		message = "郵件發送產生錯誤！"
 	server.quit() #關閉連線
+#---------------------------------------------------------------------------
+def view_history_temperature(request):
+    resultObject = temperature_db.objects.all().order_by("-myid")
+
+    for data in resultObject:
+        print(model_to_dict(data))  
+
+    # return HttpResponse("hello")
+    return render(request,"view_history_temperature.html",locals())
+
+from django.shortcuts import redirect  #自動導向頁面
+def add_temperature(request):
+    if request.method == "POST":
+        sensor_id = request.POST["sensor_id"]
+        temperature = request.POST["temperature"]
+        humidity = request.POST["humidity"]
+        # print(f"sensorid = {sensor_id}, temperature = {temperature}, humidity = {humidity}")
+
+        add = temperature_db(sensor_id = sensor_id, temperature = temperature, humidity = humidity)
+        add.save()
+
+        #return HttpResponse("已有資料")
+        return redirect("/view_history_temperature/")
+    
+    
+    else:
+         return render(request,"add_temperature.html",locals())
+
+    # return HttpResponse("hello YA")
+# #########################################################################
+# web api
+from django.views.decorators.csrf import csrf_exempt    #api 需import library
+@csrf_exempt
+def add_temperature_api(request):
+    try:
+        if request.method == "GET":
+            sensor_id = request.GET["sensor_id"]
+				 
+            temperature = request.GET["temperature"]
+            humidity = request.GET["humidity"]
+            print(f"get 1sensorid = {sensor_id}, get 2temperature = {temperature}, get 3humidity = {humidity}")
+
+            
+        elif request.method == "POST":
+            sensor_id = request.POST["sensor_id"]
+            temperature = request.POST["temperature"]
+            humidity = request.POST["humidity"]
+            print(f"post sensorid = {sensor_id}, post temperature = {temperature}, post humidity = {humidity}")
+
+            
+    except:
+        return HttpResponse("add error")
+    
+    try:
+        add = temperature_db(sensor_id = sensor_id, temperature = temperature, humidity = humidity)
+        add.save()
+        return HttpResponse("true")
+    except:
+        return HttpResponse("orm execute error")
+    
+def show_temperature1(request):
+    # 取出最新一筆，myid
+    resultObject = temperature_db.objects.all().order_by("-myid")[0:1]
+    # for data in resultObject:
+    #     #print to terminal 查看
+    #     print(model_to_dict(data)) 
+     
+    #轉成dict_values, 並取出第一筆
+    data = resultObject.values()[0]
+    print(type(data))
+    print(data)
+
+
+
+    #return HttpResponse("hello go")
+    return render(request,"show_temperature1.html",locals())
+
+def show_temperature_api(request):
+    resultObject = temperature_db.objects.all().order_by("-myid")[0:1]
+    data = list(resultObject.values())
+    # print(type(data))
+    print(data)
+
+    taiwan_tz = pytz.timezone("Asia/Taipei") #台灣時間
+    #call by referenct, 在list內有dict, 使用for in (rocord 為call by reference)
+    for record in data:
+        # print(record)
+        timestamp = record.get('timestamp')
+        # print(timestamp)
+        # print("..............")
+        if timestamp:
+            if timestamp.tzinfo is None:
+                timestamp = pytz.utc.localize(taiwan_tz) #新增時間資訊
+            #更新時間資訊
+            taiwan_time = timestamp.astimezone(taiwan_tz) #將時間轉為台灣時間
+            formatted_timestamp = taiwan_time.strftime("%Y-%m-%d %H:%M:%S") #格式化
+            record["timestamp"] = formatted_timestamp # basci-13.py if record 是字典型態則call by addrsss
+            print(record)
+    print(data)
+
+    # return HttpResponse("hello go")
+    return JsonResponse(data, safe=False)
+
+def show_temperature2(request):
+    return render(request,"show_temperature2.html",locals())
