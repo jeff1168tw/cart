@@ -19,6 +19,8 @@ from cartapp import views
 from django.conf import settings
 from django.conf.urls.static import static
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index),
@@ -30,5 +32,16 @@ urlpatterns = [
     path('cartorder/', views.cartorder),
     path('cartok/', views.cartok),
     path('cartordercheck/', views.cartordercheck),
+
+    path('view_history_temperature/',views.view_history_temperature),
+    path('add_temperature/',views.add_temperature),
+    path('show_temperature1/',views.show_temperature1),
+
+     #web api
+    path('add_temperature_api/',views.add_temperature_api),
+     #ajax
+    path('show_temperature_api/',views.show_temperature_api),
+    path('show_temperature2/',views.show_temperature2),
+    
 ]
 urlpatterns += static(settings.MEDIA_URL , document_root=settings.MEDIA_ROOT)
